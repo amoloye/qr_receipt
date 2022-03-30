@@ -13,5 +13,11 @@ public interface ProductService {
 
     Product fetchProductByName (String productName);
 
+    Product fetchProductById (Long productId) throws Exception;
+
     void createProductList (List<Product> productList);
+
+    Product updateProduct (Long productId, Product product);
+
+    void deleteProductById (Long productId);
 }
