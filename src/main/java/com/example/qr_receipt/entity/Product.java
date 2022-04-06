@@ -31,10 +31,10 @@ public class Product {
     private double productPrice;
 
     public double getProductPrice () {
-        return productPrice=getUnitPrice() *getQuantity();
+        return productPrice;
     }
 
     public void setProductPrice (double productPrice) {
-        this.productPrice =productPrice;
+        this.productPrice =getUnitPrice() *getQuantity();
     }
 }

@@ -23,11 +23,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void createProduct (Product product) {
+        product.setProductPrice(product.getUnitPrice() * product.getQuantity());
          productRepository.save(product);
     }
 
     @Override
     public void createProductList (List<Product> productList) {
+
         productRepository.saveAll(productList);
 
     }
@@ -44,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
             productDB.setQuantity(product.getQuantity());
         }
 
-        if (product.getPrice()!=0){
+        if (product.getProductPrice()!=0){
             productDB.setQuantity(product.getQuantity());
         }
 

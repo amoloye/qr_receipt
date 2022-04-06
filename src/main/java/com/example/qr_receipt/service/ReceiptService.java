@@ -7,9 +7,8 @@ import java.io.IOException;
 
 
 public interface ReceiptService {
-    Receipt saveReceipt (Receipt receipt) throws Exception;
 
     Receipt fetchReceiptById (Long receiptId);
 
-    String generateQRCode(Long receiptId) throws WriterException, IOException;
+    String generateQRCode(Receipt receipt) throws WriterException, IOException;
 }

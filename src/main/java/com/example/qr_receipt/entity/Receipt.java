@@ -29,7 +29,7 @@ public class Receipt {
 //store or seller business name
     @OneToOne
     @JoinColumn
-    private StoreDetail storeDetail;
+    private StoreDetail storeDetailName;
 
     @OneToMany
     @JoinColumn
@@ -37,12 +37,12 @@ public class Receipt {
 
     private Double totalPrice;
     private LocalDateTime localDateTime;
-    public Double getTotalPrice () {
-        return totalPrice=productList . stream()
+
+    public void setTotalPrice (Double totalPrice) {
+        this.totalPrice = productList.stream()
                 .map (Product::getProductPrice)
                 .reduce ((double) 0, Double::sum);
     }
-
 
     public LocalDateTime getLocalDateTime () {
         return localDateTime= LocalDateTime.now();

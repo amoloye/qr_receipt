@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,14 +20,20 @@ public class AppUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long appUserId;
 
+    @NotBlank
+    private String userName;
+
     @NotBlank(message = "first name cannot be blank")
     private String firstName;
 
     @NotBlank(message = "last name cannot be blank")
     private String lastName;
 
-    @NonNull
     @NotBlank(message = "please input password")
     private String password;
+
+    @OneToMany
+    @JoinColumn
+    private List<StoreDetail> storeDetailList;
 
 }

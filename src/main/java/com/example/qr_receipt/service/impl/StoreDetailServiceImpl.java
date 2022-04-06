@@ -1,6 +1,7 @@
 package com.example.qr_receipt.service.impl;
 
 import com.example.qr_receipt.entity.StoreDetail;
+
 import com.example.qr_receipt.repository.StoreDetailRepository;
 import com.example.qr_receipt.service.StoreDetailService;
 import lombok.AllArgsConstructor;
@@ -14,13 +15,16 @@ import java.util.Optional;
 public class StoreDetailServiceImpl implements StoreDetailService {
     private static final String storeDetailNotFoundException= "store details is not found";
 
+    private final StoreDetail storeDetail;
 
-    private StoreDetailRepository storeDetailRepository;
+
+    private final StoreDetailRepository storeDetailRepository;
 
     @Override
     public StoreDetail saveStoreDetail (StoreDetail storeDetail) {
         return storeDetailRepository.save(storeDetail);
     }
+
 
     @Override
     public StoreDetail fetchStoreDetailById (Long storeId) throws Exception {
