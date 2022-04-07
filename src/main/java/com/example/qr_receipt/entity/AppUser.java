@@ -20,20 +20,18 @@ public class AppUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long appUserId;
 
-    @NotBlank
+    @NotBlank(message = "username cannot be blank")
     private String userName;
 
-    @NotBlank(message = "first name cannot be blank")
-    private String firstName;
-
-    @NotBlank(message = "last name cannot be blank")
-    private String lastName;
+    @NotBlank(message = "store name cannot be blank")
+    private String storeName;
 
     @NotBlank(message = "please input password")
     private String password;
 
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
-    private List<StoreDetail> storeDetailList;
+    private List<Receipt> receiptList;
 
 }

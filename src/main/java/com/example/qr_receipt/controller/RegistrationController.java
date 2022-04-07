@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 @AllArgsConstructor
 @RestController
@@ -16,8 +17,9 @@ public class RegistrationController {
     RegistrationService registrationService;
 
     @PostMapping("/registration")
-    public ResponseEntity<AppUser> createAppUser(AppUser appUser) throws AppUserAlreadyExistsException {
-        return  new ResponseEntity<>(registrationService.createAppUser(appUser), HttpStatus.OK);
+    public RedirectView createAppUser(AppUser appUser) throws AppUserAlreadyExistsException {
+          new ResponseEntity<>(registrationService.createAppUser(appUser), HttpStatus.OK);
+          return new RedirectView("/login");
     }
 
 

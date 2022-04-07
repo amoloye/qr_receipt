@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-
 @Getter
 @Setter
 @Entity
@@ -21,32 +20,37 @@ public class Receipt {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long receiptId;
 
-    //buyer
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private AppUser appUser;
 
-//store or seller business name
-    @OneToOne
-    @JoinColumn
-    private StoreDetail storeDetailName;
-
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     private List<Product> productList;
 
-    private Double totalPrice;
-    private LocalDateTime localDateTime;
+    private  LocalDateTime localDateTime;
 
-    public void setTotalPrice (Double totalPrice) {
-        this.totalPrice = productList.stream()
-                .map (Product::getProductPrice)
-                .reduce ((double) 0, Double::sum);
-    }
+    private Double totalPrice;
+
 
     public LocalDateTime getLocalDateTime () {
-        return localDateTime= LocalDateTime.now();
+        return localDateTime;
     }
 
+    public void setLocalDateTime (LocalDateTime localDateTime) {
+        this.localDateTime = LocalDateTime.now();
+    }
+
+
+
+    public Double getTotalPrice () {
+        return totalPrice;
+    }
+
+    public void setTotalPrice (Product totalPrice) {
+        this.totalPrice = getProductList().stream()
+               .map (Product::getProductPrice)
+                .reduce ((double) 0, Double::sum);
+    }
 
 }

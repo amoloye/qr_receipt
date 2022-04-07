@@ -4,4 +4,6 @@ import com.example.qr_receipt.exception.UserDoesNotExistException;
 
 public interface LoginService {
     String fetchAppUserByUsernameAndPassword (String username, String password) throws UserDoesNotExistException;
+
+    void deleteAppUserById (Long userId);
 }
