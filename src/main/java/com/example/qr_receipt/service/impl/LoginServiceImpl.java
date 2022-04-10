@@ -8,25 +8,33 @@ import com.example.qr_receipt.service.LoginService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.Optional;
+
 
 @AllArgsConstructor
 @Service
 public class LoginServiceImpl implements LoginService {
     private final AppUserRepository appUserRepository;
 
-    private  final Login login;
-
-
     @Override
-    public String fetchAppUserByUsernameAndPassword (String username, String password)
-            throws UserDoesNotExistException {
-        AppUser appUserDB= appUserRepository.findByUserNameAndPassword(login.getUserName(),login.getPassword());
-        if (!Objects.equals(appUserDB.getUserName(), login.getUserName())
-                && !Objects.equals(appUserDB.getPassword(), login.getPassword())){
-            throw new UserDoesNotExistException("This user does not exist");
-        }
-        return appUserDB.getUserName() + " Logged in successfully";
+    public String LoginAppUserByUsernameAndPassword (Login login)
+            throws UserDoesNotExistException{
+        String username = login.getUsername();
+        String password = login.getPassword();
+            Optional<AppUser> appUserDB =
+                    Optional.ofNullable(appUserRepository.findByUsernameAndPasswordIgnoreCase(username, password));
+            if (appUserDB.isEmpty()){
+                throw new UserDoesNotExistException("wrong username or password");
+            }
+
+
+
+            return appUserDB.get().getUsername() + " Logged in successfully";
+
+
 
     }
+
+
+
 }

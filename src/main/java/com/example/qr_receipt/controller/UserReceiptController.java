@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @AllArgsConstructor
 @RestController
-public class ReceiptController {
+public class UserReceiptController {
 
     private ReceiptService receiptService;
 

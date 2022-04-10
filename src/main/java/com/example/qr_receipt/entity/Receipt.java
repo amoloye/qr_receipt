@@ -4,7 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import javax.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
+
 import java.util.List;
 
 
@@ -16,6 +19,8 @@ import java.util.List;
 @Builder
 public class Receipt {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long receiptId;
@@ -26,31 +31,19 @@ public class Receipt {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
+    @NotNull(message = "add at least one product")
     private List<Product> productList;
 
-    private  LocalDateTime localDateTime;
+    private  LocalDateTime localDateTime=getLocalDateTime();
 
-    private Double totalPrice;
+    private Double total;
 
 
     public LocalDateTime getLocalDateTime () {
-        return localDateTime;
-    }
-
-    public void setLocalDateTime (LocalDateTime localDateTime) {
-        this.localDateTime = LocalDateTime.now();
+        return LocalDateTime.now();
     }
 
 
 
-    public Double getTotalPrice () {
-        return totalPrice;
-    }
-
-    public void setTotalPrice (Product totalPrice) {
-        this.totalPrice = getProductList().stream()
-               .map (Product::getProductPrice)
-                .reduce ((double) 0, Double::sum);
-    }
 
 }

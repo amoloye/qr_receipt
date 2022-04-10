@@ -2,7 +2,7 @@ package com.example.qr_receipt.service.impl;
 
 import com.example.qr_receipt.entity.Product;
 import com.example.qr_receipt.entity.Receipt;
-import com.example.qr_receipt.repository.AppUserRepository;
+
 import com.example.qr_receipt.repository.ProductRepository;
 import com.example.qr_receipt.repository.ReceiptRepository;
 import com.example.qr_receipt.service.ReceiptService;
@@ -23,10 +23,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ReceiptServiceImpl implements ReceiptService {
+public class UserReceiptServiceImpl implements ReceiptService {
 
     private final ReceiptRepository receiptRepository;
-    private final AppUserRepository appUserRepository;
     private final ProductRepository productRepository;
 
 
@@ -39,13 +38,18 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public String generateQRCode (Receipt receipt)
             throws WriterException, IOException {
-          //List<Product> productList = productRepository.findAll();
+
 
           LocalDateTime localDateTime = receipt.getLocalDateTime();
           String storeName = receipt.getAppUser().getStoreName();
           List<Product> productList = receipt.getProductList();
-          double totalPrice =receipt.getTotalPrice();
+          double totalPrice = productList.stream()
+                  .map (Product::getTotalAmount)
+                  .reduce ((double) 0, Double::sum);
+          receipt.setTotal(totalPrice);
 
+          receiptRepository.save(receipt);
+          productRepository.saveAll(productList);
 
 
         String QRCODE_PATH= "src/main/java/com/example/qr_receipt/QRCODE_SERVER";
@@ -53,11 +57,11 @@ public class ReceiptServiceImpl implements ReceiptService {
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix bitMatrix = writer.encode(storeName +
                 "\n" +productList+ "\n" + localDateTime + "\n"
-                + totalPrice, BarcodeFormat.QR_CODE,350,350);
+                + receipt.getTotal(), BarcodeFormat.QR_CODE,350,350);
         Path path = FileSystems.getDefault().getPath(qrcode);
         MatrixToImageWriter.writeToPath(bitMatrix,"PNG",path);
 
-        receiptRepository.save(receipt);
+
 
 
         return "QRCODE is generated successfully";

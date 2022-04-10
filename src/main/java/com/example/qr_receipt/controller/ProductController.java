@@ -15,11 +15,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/product")
-    public void createProduct(@Valid @RequestBody Product product){
-         productService.createProduct(product);
 
-    }
     @PostMapping("/products")
     public void createProductList(@Valid @RequestBody List<Product> productList){
         productService.createProductList(productList);
@@ -40,10 +36,10 @@ public class ProductController {
         return productService.fetchProductList();
     }
 
-    @PutMapping("/product/{id}")
-    public Product updateStoreDetail(@Valid @PathVariable("id") Long productId,
+    @PutMapping("/product/{name}")
+    public Product updateStoreDetail(@Valid @PathVariable("name") String productName,
                                      @RequestBody Product product){
-        return  productService.updateProduct(productId,product);
+        return  productService.updateProduct(productName,product);
 
     }
 

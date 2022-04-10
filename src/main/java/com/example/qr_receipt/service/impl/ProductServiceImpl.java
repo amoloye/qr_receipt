@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -20,13 +19,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
 
-
-    @Override
-    public void createProduct (Product product) {
-        product.setProductPrice(product.getUnitPrice() * product.getQuantity());
-         productRepository.save(product);
-    }
-
     @Override
     public void createProductList (List<Product> productList) {
 
@@ -35,19 +27,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct (Long productId, Product product) {
-        Product productDB = productRepository.findById(productId).get();
+    public Product updateProduct (String productName, Product product) {
+        Product productDB = productRepository.findByProductNameIgnoreCase(productName);
 
-        if (Objects.nonNull(product.getProductName())&&
-                !"".equalsIgnoreCase(product.getProductName())){
-            productDB.setProductName(product.getProductName());
-        }
-        if (product.getQuantity()!=0){
-            productDB.setQuantity(product.getQuantity());
-        }
-
-        if (product.getProductPrice()!=0){
-            productDB.setQuantity(product.getQuantity());
+        if (product.getUnitPrice()!=0){
+            productDB.setUnitPrice(product.getUnitPrice());
         }
 
         return productRepository.save(productDB);

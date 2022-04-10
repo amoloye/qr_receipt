@@ -5,23 +5,25 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-import java.util.List;
 
-@Data
+
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
-public class AppUser implements Serializable {
+
+public class AppUser  {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long appUserId;
 
     @NotBlank(message = "username cannot be blank")
-    private String userName;
+    private String username;
 
     @NotBlank(message = "store name cannot be blank")
     private String storeName;
@@ -30,8 +32,6 @@ public class AppUser implements Serializable {
     private String password;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn
-    private List<Receipt> receiptList;
+
 
 }

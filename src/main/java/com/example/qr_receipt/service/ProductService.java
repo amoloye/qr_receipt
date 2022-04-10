@@ -5,9 +5,9 @@ import com.example.qr_receipt.entity.Product;
 import java.util.List;
 
 public interface ProductService {
-     void createProduct (Product product);
 
-//     String writeQRCode(String productName) throws  Exception;
+
+
 
     List<Product> fetchProductList ();
 
@@ -17,7 +17,7 @@ public interface ProductService {
 
     void createProductList (List<Product> productList);
 
-    Product updateProduct (Long productId, Product product);
+    Product updateProduct (String productName, Product product);
 
     void deleteProductById (Long productId);
 }

@@ -1,12 +1,10 @@
 package com.example.qr_receipt.entity;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
@@ -16,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Getter
 @Setter
+
 public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -24,17 +23,22 @@ public class Product {
     @NotBlank(message = "product name cannot be blank")
     private String productName;
 
+
+    @NotNull(message = "specify price in euros")
+    private double unitPrice;
+
+
     @NotNull(message = "specify quantity")
     @Min(1)
     private int quantity;
 
-    @NotEmpty(message = "specify price in euros")
-    private double unitPrice;
 
-    @Transient
-    private double productPrice;
+    private double TotalAmount = getTotalAmount();
 
-    public void setProductPrice (double productPrice) {
-        this.productPrice =getUnitPrice() *getQuantity();
+
+    public double getTotalAmount (){
+        return quantity * unitPrice;
     }
+
+
 }

@@ -1,6 +1,10 @@
 package com.example.qr_receipt.model;
 
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
@@ -8,10 +12,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Login {
-    @NotBlank
-    private String userName;
+
+    @NotBlank(message = "please input username")
+    private String username;
 
     @NotBlank(message = "please input password")
     private String password;
