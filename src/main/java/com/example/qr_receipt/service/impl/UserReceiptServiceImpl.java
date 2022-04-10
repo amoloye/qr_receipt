@@ -1,5 +1,6 @@
 package com.example.qr_receipt.service.impl;
 
+
 import com.example.qr_receipt.entity.Product;
 import com.example.qr_receipt.entity.Receipt;
 
@@ -19,6 +20,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 
 @Service
@@ -41,7 +43,7 @@ public class UserReceiptServiceImpl implements ReceiptService {
 
 
           LocalDateTime localDateTime = receipt.getLocalDateTime();
-          String storeName = receipt.getAppUser().getStoreName();
+          String storeName = receipt.getStoreName();
           List<Product> productList = receipt.getProductList();
           double totalPrice = productList.stream()
                   .map (Product::getTotalAmount)
@@ -52,7 +54,7 @@ public class UserReceiptServiceImpl implements ReceiptService {
           productRepository.saveAll(productList);
 
 
-        String QRCODE_PATH= "src/main/java/com/example/qr_receipt/QRCODE_SERVER";
+        String QRCODE_PATH= "src/main/java/com/example/qr_receipt/QRCODE_SERVER/";
         String qrcode= QRCODE_PATH+ storeName + "-QRCODE.png";
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix bitMatrix = writer.encode(storeName +
@@ -63,8 +65,7 @@ public class UserReceiptServiceImpl implements ReceiptService {
 
 
 
-
-        return "QRCODE is generated successfully";
+        return qrcode +" QRCODE is generated successfully";
 
     }
 

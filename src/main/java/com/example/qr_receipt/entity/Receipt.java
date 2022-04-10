@@ -25,9 +25,11 @@ public class Receipt {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long receiptId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private AppUser appUser;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn
+//    private AppUser appUser;
+
+    private String storeName;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
@@ -36,7 +38,7 @@ public class Receipt {
 
     private  LocalDateTime localDateTime=getLocalDateTime();
 
-    private Double total;
+    private Double total=getTotal();
 
 
     public LocalDateTime getLocalDateTime () {

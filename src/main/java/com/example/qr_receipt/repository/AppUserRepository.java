@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface AppUserRepository extends JpaRepository<AppUser,Long> {
 
     AppUser findByUsernameAndPasswordIgnoreCase (String username, String password);
+    AppUser findByStoreName(String storeName);
 }

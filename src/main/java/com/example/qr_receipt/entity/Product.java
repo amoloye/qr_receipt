@@ -16,6 +16,13 @@ import javax.validation.constraints.NotNull;
 @Setter
 
 public class Product {
+
+    public Product (String productName, double unitPrice, int quantity) {
+        this.productName = productName;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+    }
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private long productId;
@@ -28,11 +35,13 @@ public class Product {
     private double unitPrice;
 
 
+
+    @Transient
     @NotNull(message = "specify quantity")
     @Min(1)
     private int quantity;
 
-
+    @Transient
     private double TotalAmount = getTotalAmount();
 
 
