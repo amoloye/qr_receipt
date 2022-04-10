@@ -28,4 +28,4 @@
 
 #Test API
 
-#Create frontend
+#Create frontend : https://github.com/amoloye/qr_receipt_Ui
