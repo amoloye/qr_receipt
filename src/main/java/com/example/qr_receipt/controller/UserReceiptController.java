@@ -17,12 +17,12 @@ public class UserReceiptController {
 
 
 
-    @GetMapping("/receipt/{id}")
+    @PostMapping("/receipt/{id}")
     public Receipt fetchReceiptById(@PathVariable("id") Long receiptId){
         return receiptService.fetchReceiptById(receiptId);
     }
 
-    @PostMapping("/receipt/generate")
+    @GetMapping("/receipt/generate")
     public String generateQRCode(@Valid @RequestBody Receipt receipt ) throws IOException, WriterException {
         return receiptService.generateQRCode(receipt);
     }
